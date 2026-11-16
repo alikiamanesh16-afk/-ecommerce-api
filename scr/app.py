@@ -1,4 +1,7 @@
+
 from fastapi import FastAPI
+
+from scr.api.endpoints.v1.router import router
 
 app = FastAPI(
     title="Ecommerce API",
@@ -6,7 +9,4 @@ app = FastAPI(
     version="1.0.0"
 )
 
-
-@app.get("/")
-def root():
-    return {"message": "Ecommerce API is running"}
+app.include_router(router, prefix="/api/v1")
