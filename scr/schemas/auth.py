@@ -14,3 +14,13 @@ class RegisterResponse(BaseModel):
     name: str
     phone_number: str
     username: str
+
+class LoginRequest(BaseModel):
+    username: str = Field(min_length=3, max_length=50)
+    password: str = Field(min_length=8)
+
+
+class LoginResponse(BaseModel):
+    id: int
+    name: str
+    username: str

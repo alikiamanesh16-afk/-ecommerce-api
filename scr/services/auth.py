@@ -32,3 +32,18 @@ def register_member(data):
         "phone_number": member[2],
         "username": member[3]
     }
+
+def login_member(data):
+    member = get_member_by_username(data.username)
+
+    if not member:
+        raise ValueError("Invalid username or password")
+
+    if not password_hasher.verify(data.password, member[4]):
+        raise ValueError("Invalid username or password")
+
+    return {
+        "id": member[0],
+        "name": member[1],
+        "username": member[3]
+    }
