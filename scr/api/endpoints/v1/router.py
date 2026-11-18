@@ -15,7 +15,6 @@ from scr.schemas.shops import ShopCreate, ShopUpdate, ShopResponse
 from scr.services.shops import (
     create_shop,
     update_shop,
-    delete_shop
 )
 
 
@@ -70,7 +69,10 @@ def login(data: LoginRequest):
 
 @router.post("/shops", response_model=ShopResponse, status_code=201)
 def create_shop_endpoint(data: ShopCreate):
-    return create_shop(data)
+    try:
+        return create_shop(data)
+    except ValueError as error:
+        raise HTTPException(status_code=404, detail=str(error))
 
 
 @router.get("/shops", response_model=list[ShopResponse])

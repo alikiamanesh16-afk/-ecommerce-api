@@ -5,7 +5,7 @@ from scr.repositories.shops import (
     get_all_shops,
     update_shop as update_shop_repository
 )
-
+from scr.repositories.members import get_member_by_phone
 
 def shop_to_dict(shop):
     return {
@@ -18,8 +18,15 @@ def shop_to_dict(shop):
 
 
 def create_shop(data):
+    member = get_member_by_phone(data.phone_number)
+
+    if not member:
+        raise ValueError("Member not found")
+
+    member_id = member[0]
+
     shop = create_shop_repository(
-        data.member_id,
+        member_id,
         data.name,
         data.introduction,
         data.category

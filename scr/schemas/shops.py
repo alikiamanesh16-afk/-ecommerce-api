@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 
 
 class ShopCreate(BaseModel):
-    member_id: int
+    phone_number: str = Field(min_length=10, max_length=20)
     name: str = Field(min_length=2, max_length=150)
     introduction: str
     category: str = Field(min_length=2, max_length=100)
